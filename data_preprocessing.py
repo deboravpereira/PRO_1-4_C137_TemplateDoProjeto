@@ -32,14 +32,17 @@ def get_stem_words(words, ignore_words):
     for word in words:
 
         # escreva o algoritmo de stemização:
-        '''
-        Verifique se a palavra não faz parte da palavra de parada:
-        1) converta-a para minúsculo
-        2) stemize a palavra
-        3) anexe-a na lista stem_words
-        4) retorne a lista
-        ''' 
-        # Adicione o código aqui #        
+        
+        # Verifique se a palavra não faz parte da palavra de parada:
+        # 1) converta-a para minúsculo
+        
+        # 2) stemize a palavra
+        
+        # 3) anexe-a na lista stem_words
+        
+        # 4) retorne a lista
+        
+            
 
     return stem_words
 
@@ -63,10 +66,8 @@ def create_bot_corpus(words, classes, pattern_word_tags_list, ignore_words):
 
         # Adicione todos os padrões e tags a uma lista
         for pattern in intent['patterns']:  
-
             # tokenize o padrão          
             pattern_words = nltk.word_tokenize(pattern)
-
             # adicione as palavras tokenizadas à lista words        
                           
             # adicione a 'lista de palavras tokenizadas' junto com a 'tag' à lista pattern_word_tags_list
@@ -78,12 +79,11 @@ def create_bot_corpus(words, classes, pattern_word_tags_list, ignore_words):
 
             
     stem_words = get_stem_words(words, ignore_words) 
-
     # Remova palavras duplicadas de stem_words
-
+    stem_words = sorted(list(set(stem_words)))
     # ordene a lista de palavras-tronco e a lista classes
-
-    
+    classes = sorted(list(set(classes)))
+   
     # imprima a stem_words
     print('lista de palavras stemizadas: ' , stem_words)
 
@@ -146,7 +146,6 @@ def preprocess_train_data():
     
     # Converta as palavras-tronco e a lista classes para o formato de arquivo Python pickle
     
-
     train_x = bag_of_words_encoding(stem_words, word_tags_list)
     train_y = class_label_encoding(tag_classes, word_tags_list)
     
