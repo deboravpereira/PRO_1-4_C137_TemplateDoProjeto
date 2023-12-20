@@ -68,9 +68,12 @@ def create_bot_corpus(words, classes, pattern_word_tags_list, ignore_words):
         for pattern in intent['patterns']:  
             # tokenize o padrão          
             pattern_words = nltk.word_tokenize(pattern)
-            # adicione as palavras tokenizadas à lista words        
-                          
+            
+            # adicione as palavras tokenizadas à lista words
+                                  
+            
             # adicione a 'lista de palavras tokenizadas' junto com a 'tag' à lista pattern_word_tags_list
+            
             
             
         # Adicione todas as tags à lista classes
@@ -107,12 +110,11 @@ def bag_of_words_encoding(stem_words, pattern_word_tags_list):
         stemmed_pattern_word = get_stem_words(pattern_words, ignore_words)
 
         # Codificando dados de entrada 
-        '''
-        Escreva o algoritmo BOW:
-        1) pegue uma palavra da lista stem_words
-        2) verifique se essa palavra está em stemmed_pattern_word
-        3) anexe 1 no BOW; caso contrário, anexe 0
-        '''
+        for word in stem_words:            
+            if word in stemmed_pattern_word:              
+                bag_of_words.append(1)
+            else:
+                bag_of_words.append(0)
         
         bag.append(bag_of_words)
     
@@ -145,6 +147,8 @@ def preprocess_train_data():
     stem_words, tag_classes, word_tags_list = create_bot_corpus(words, classes, pattern_word_tags_list, ignore_words)
     
     # Converta as palavras-tronco e a lista classes para o formato de arquivo Python pickle
+    pickle.dump(stem_words, open('words.pkl','wb'))
+    pickle.dump(tag_classes, open('classes.pkl','wb'))
     
     train_x = bag_of_words_encoding(stem_words, word_tags_list)
     train_y = class_label_encoding(tag_classes, word_tags_list)
